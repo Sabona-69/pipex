@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:13:57 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/03/23 20:07:06 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/03/31 06:55:29 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*ft_strjoin(char *s, char *buffer);
 char	*ft_strdup(char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	putstr_fd(char *s, int fd);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 
 //errors
 void	free2d(char **s, int i);
