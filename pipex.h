@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:13:57 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/03/31 06:55:29 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:28:57 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 typedef struct s_vrs
 {
-	int		fd_infile;
-	int		fd_outfile;
 	char	**path;
 	int		p[2];
+	int		fd_infile;
+	int		fd_outfile;
 }	t_vrs;
 
 //utils

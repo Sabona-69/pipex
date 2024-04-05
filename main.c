@@ -162,7 +162,7 @@ int main(int ac, char **av, char **env)
 	// char *a[] = {"grep", "'", NULL};
 	char *path = trim_end(*command);
 	path = ft_strjoin("/usr/bin/",path);
-	if (execve(path, command, env) < 0)
+	if (execve(path, command, env) == -1)
 		perror(path);
 	// while (*command)
 	// 	printf("{%s}\n", *command++);
