@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabona <sabona@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/17 17:02:25 by sabona           ###   ########.fr       */
+/*   Updated: 2024/04/19 23:30:58 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ char	**env_path(char **env)
 			break ;
 		j++;
 	}
-	while (env[j][i] != '/')
+	while (env[j][i] && env[j][i] != '/')
 		i++;
 	new = ft_split(&env[j][i], ':');
+	if (!new)
+		(putstr_fd("Invalid env !\n", 2), exit(1));
 	j = 0;
 	while (new[j])
 	{
@@ -38,28 +40,32 @@ char	**env_path(char **env)
 	return (new);
 }
 
-char	*get_path(char **command, t_vrs *pipex)
+char	*get_path(char **command, char **env, t_vrs *pipex)
 {
+	char	**paths;
 	char	*path;
 	int		j;
 
-	j = 0;
+	(1) && (j = 0, paths = env_path(env));
 	if (access(command[j], F_OK | X_OK) == 0)
 		path = ft_strdup(command[j]);
 	else
 	{
-		while (pipex->path[j])
+		while (paths[j])
 		{
-			path = ft_strjoin(pipex->path[j], command[0]);
-			// printf("[%s]\n", path);
+			path = ft_strjoin(paths[j], command[0]);
 			if (access(path, F_OK | X_OK) == 0)
 				break ;
 			j++;
-			free(path), path = NULL;
-			if (!pipex->path[j])
-				(free(path), perror(pipex->path[j]));
+			free (path);
+			if (!paths[j] && access(path, F_OK | X_OK) < 0)
+			{
+				ft_error("path ", pipex);
+				(free2d(paths, ft_strlen2d(paths)), exit(1));
+			}
 		}
 	}
+	free2d(paths, ft_strlen2d(paths));
 	return (path);
 }
 
@@ -68,16 +74,19 @@ void	child_1(t_vrs *pipex, char **av, char **env)
 	char	**command;
 	char	*path;
 
-	path = trim_end(av[2]);
 	close(pipex->fd_outfile);
 	close(pipex->p[0]);
-	if (dup2(pipex->fd_infile, 0) == -1 || dup2(pipex->p[1], 1) == -1)
-		(free(path), ft_error("dup2 ", pipex));
+	if (dup2(pipex->fd_infile, 0) < 0 || dup2(pipex->p[1], 1) < 0)
+		ft_error("dup2 ", pipex);
+	path = trim_end(av[2]);
 	(close(pipex->p[1]), close(pipex->fd_infile));
 	command = ft_split(path, is_quote(av[2]));
-	path = get_path(command, pipex);
-	if (execve(path, command, env) == -1)
-		(free(path),free2d(command, ft_strlen((char*)command)), ft_error("execve ", pipex));
+	path = get_path(command, env, pipex);
+	if (execve(path, command, env) < 0)
+	{
+		free2d(command, ft_strlen2d (command));
+		ft_error("execve ", pipex);
+	}
 }
 
 void	child_2(t_vrs *pipex, char **av, char **env)
@@ -88,48 +97,42 @@ void	child_2(t_vrs *pipex, char **av, char **env)
 	path = trim_end(av[3]);
 	close(pipex->fd_infile);
 	close(pipex->p[1]);
-	if (dup2(pipex->p[0], 0) == -1 || dup2(pipex->fd_outfile, 1) == -1)
+	if (dup2(pipex->p[0], 0) < 0 || dup2(pipex->fd_outfile, 1) < 0)
 		(free(path), ft_error("dup2 ", pipex));
 	(close(pipex->p[0]), close(pipex->fd_outfile));
-	// fprintf(stderr, "{%s}\n", path);
-	command = ft_split(path,  is_quote(av[3]));
-	path = get_path(command, pipex);
-	if (execve(path, command, env) == -1)
-		(free(path),free2d(command, ft_strlen((char*)command)), ft_error("execve ", pipex));
+	command = ft_split (path, is_quote(av[3]));
+	path = get_path(command, env, pipex);
+	if (execve(path, command, env) < 0)
+	{
+		free2d (command, ft_strlen2d (command));
+		ft_error("execve ", pipex);
+	}
 }
 
 int	main(int ac, char **av, char **env)
 {
 	t_vrs	pipex;
-	int		pid1;
-	int		pid2;
 
 	if (ac != 5)
-	{
-		putstr_fd("Please insert 5 arguments !\n", 2);
-		return (1);
-	}
-	pipex.fd_infile = open(av[2], O_RDONLY, 0555);
-	pipex.fd_outfile = open(av[ac - 1], O_CREAT | O_RDWR | O_TRUNC, 0555);
+		(putstr_fd("Please insert 5 arguments !\n", 2), exit (1));
+	pipex.fd_infile = open(av[1], O_RDONLY);
+	pipex.fd_outfile = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (pipex.fd_infile < 0 || pipex.fd_outfile < 0)
-		ft_error("file ", &pipex);
-	pipex.path = env_path(env);
-	if (pipe(pipex.p) == -1)
+		ft_error("File ", &pipex);
+	if (pipe(pipex.p) < 0)
 		ft_error("Pipe ", &pipex);
-	pid1 = fork();
-	if (pid1 == -1)
+	pipex.pid1 = fork();
+	if (pipex.pid1 < 0)
 		ft_error("Fork ", &pipex);
-	if (pid1 == 0)
+	if (pipex.pid1 == 0)
 		child_1(&pipex, av, env);
-	pid2 = fork();
-	if (pid2 == -1)
-		ft_error("Fork ", &pipex);
-	if (pid2 == 0)
-		child_2(&pipex, av, env);
-	wait(NULL);
-	// wait(NULL);
-	close(pipex.p[0]);
-	close(pipex.p[1]);
-	free2d(pipex.path, ft_strlen((char*)pipex.path));
-	exit(0);
+	else
+	{
+		pipex.pid2 = fork();
+		if (pipex.pid2 < 0)
+			ft_error("Fork ", &pipex);
+		if (pipex.pid2 == 0)
+			child_2(&pipex, av, env);
+	}
+	(close(pipex.p[0]), close(pipex.p[1]), wait(NULL), wait(NULL), exit(0));
 }

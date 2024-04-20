@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sabona <sabona@student.42.fr>              +#+  +:+       +#+         #
+#    By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/29 05:16:48 by hel-omra          #+#    #+#              #
-#    Updated: 2024/04/12 08:57:12 by sabona           ###   ########.fr        #
+#    Updated: 2024/04/19 23:21:19 by hel-omra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ CC			= cc
 
 RM			= rm -rf
 
-FLAGS		= -g -fsanitize=address#-Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror #-g -fsanitize=address
 
-SRC			= pipex.c utils.c utils2.c errors.c 
+SRC			= pipex.c utils.c utils2.c utils3.c 
 
 OBJ			= $(SRC:.c=.o)
 

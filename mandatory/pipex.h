@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabona <sabona@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:13:57 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/10 14:56:56 by sabona           ###   ########.fr       */
+/*   Updated: 2024/04/19 23:29:35 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ typedef struct s_vrs
 	int		p[2];
 	int		fd_infile;
 	int		fd_outfile;
+	int		pid1;
+	int		pid2;
 }	t_vrs;
 
 //utils
 size_t	ft_strlen(char *s);
+size_t	ft_strlen2d(char **s);
 char	*trim_end(char *s);
 char	is_quote(char *s);
 char	**ft_split(char *s, char c);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabona <sabona@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:46:48 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/10 14:56:22 by sabona           ###   ########.fr       */
+/*   Updated: 2024/04/19 23:25:16 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,25 @@ char	*ft_strjoin(char *s, char *buffer)
 
 	i = 0;
 	j = 0;
-	if (!s)
+	if (!s && buffer)
 		return (ft_strdup(buffer));
+	if (!buffer && s)
+		return (ft_strdup(s));
 	string = malloc(ft_strlen(s) + ft_strlen(buffer) + 1);
 	if (!string)
-		return (free(s), s = NULL);
+		return (NULL);
 	while (s[i])
 	{
 		string[i] = s[i];
 		i++;
 	}
 	while (buffer[j])
-	{
-		string[i] = buffer[j];
-		i++;
-		j++;
-	}
+		string[i++] = buffer[j++];
 	string[i] = '\0';
-	free(s);
 	return (string);
 }
 
-char *trim_end(char *s)
+char	*trim_end(char *s)
 {
 	char	*new;
 	int		i;
@@ -68,7 +65,6 @@ char *trim_end(char *s)
 	i = ft_strlen(s) - 1;
 	if (s[i] != ' ')
 		return (s);
-	
 	while (s[i] == ' ')
 		i--;
 	new = ft_substr(s, 0, i + 1);
