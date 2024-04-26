@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:46:48 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/20 19:53:21 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:11:46 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 void	putstr_fd(char *s, int fd)
 {
+	if (!s)
+		return ;
 	while (*s)
 		write (fd, s++, 1);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
 
+	if (!s1 || !s2)
+		return (1);
 	i = 0;
-	while (s1[i] == s2[i] && i < n && s1[i] && s2[i])
+	while (s1[i] == s2[i] && s2[i])
 		i++;
-	if (i == n)
+	if (s1[i] == s2[i])
 		return (0);
 	return (1);
 }
@@ -57,19 +60,19 @@ char	*ft_strjoin(char *s, char *buffer)
 	return (string);
 }
 
-// char	*trim_end(char *s)
-// {
-// 	char	*new;
-// 	int		i;
+char	*trim_end(char *s)
+{
+	char	*new;
+	int		i;
 
-// 	i = ft_strlen(s) - 1;
-// 	if (s[i] != ' ')
-// 		return (s);
-// 	while (s[i] == ' ')
-// 		i--;
-// 	new = ft_substr(s, 0, i + 1);
-// 	return (new);
-// }
+	i = ft_strlen(s) - 1;
+	if (s[i] != ' ')
+		return (s);
+	while (s[i] == ' ')
+		i--;
+	new = ft_substr(s, 0, i + 1);
+	return (new);
+}
 
 char	is_quote(char *s)
 {

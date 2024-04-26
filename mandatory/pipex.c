@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/19 23:30:58 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:32:35 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**env_path(char **env)
 	i = 0;
 	while (env[j])
 	{
-		if (ft_strncmp(env[j], "PATH=", 5) == 0)
+		if (ft_strcmp(env[j], "PATH=", 5) == 0)
 			break ;
 		j++;
 	}
@@ -60,8 +60,8 @@ char	*get_path(char **command, char **env, t_vrs *pipex)
 			free (path);
 			if (!paths[j] && access(path, F_OK | X_OK) < 0)
 			{
+				free2d(paths, ft_strlen2d(paths));
 				ft_error("path ", pipex);
-				(free2d(paths, ft_strlen2d(paths)), exit(1));
 			}
 		}
 	}
