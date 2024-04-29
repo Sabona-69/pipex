@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/26 22:08:04 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/04/29 22:30:02 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*get_path(char **command, char **env, t_vrs *pipex)
 	return (path);
 }
 
-
 void	create_child(char *av, char **env, t_vrs *px)
 {
 	char	**command;
@@ -49,11 +48,10 @@ void	create_child(char *av, char **env, t_vrs *px)
 
 	if (dup2(px->p[1], STDOUT_FILENO) < 0)
 		ft_error("dup2 ", px);
-	(close(px->p[1]), close(px->fd_infile));
-	(close(px->p[0]));
-	path = trim_end(av);
-	command = ft_split(path, is_quote(av));
+	(close(px->p[1]), close(px->fd_infile), (close(px->p[0])));
+	command = ft_split(av, is_quote(av));
 	path = get_path(command, env, px);
+	putstr_fd(av, 2);
 	if (execve(path, command, env) < 0)
 	{
 		free2d(command, ft_strlen2d (command));
@@ -63,17 +61,16 @@ void	create_child(char *av, char **env, t_vrs *px)
 
 void	pipes(t_vrs *px, char **av, char **env, int ac)
 {
-	px->nb = 2;
-	while (px->nb <= ac - 2)
+	while (px->nb < ac - 1)
 	{
 		if (pipe(px->p) < 0)
 			ft_error("pipe ", px);
 		px->pid = fork();
 		if (px->pid < 0)
 			ft_error("fork ", px);
-		if (px->pid == 0 && px->nb != ac -2)
+		if (px->pid == 0 && px->nb != ac - 2)
 			create_child(av[px->nb], env, px);
-		else if (px->pid == 0 && px->nb == ac -2)
+		else if (px->pid == 0 && px->nb == ac - 2)
 		{
 			px->p[1] = px->fd_outfile;
 			create_child(av[px->nb], env, px);
@@ -127,22 +124,23 @@ int	main(int ac, char **av, char **env)
 	int		j;
 
 	(1) && (j = 0, px.flag = 0);
-	if (ac < 5)
-		(putstr_fd("Please insert at least 5 arguments !\n", 2), exit (1));
-	if (ft_strcmp(av[1], "here_doc") == 0 && ac == 5)
-		(putstr_fd("Invalid arguments !\n", 2), exit (1));
+	// if (ac < 5)
+	// 	(putstr_fd("Please insert at least 5 arguments !\n", 2), exit (1));
+	// if (ft_strcmp(av[1], "here_doc") == 0 && ac == 5)
+	// 	(putstr_fd("Invalid arguments !\n", 2), exit (1));
 	// if (ft_strcmp(av[1], "here_doc") == 0 && ft_strlen(av[1]) == 8)
 	// 	here_doc(&px, av[2]);
 	// else
-		px.fd_infile = open(av[1], O_RDONLY);
+	px.fd_infile = open(av[1], O_RDONLY);
 	px.fd_outfile = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (px.fd_infile < 0 || px.fd_outfile < 0)
 		ft_error("file ", &px);
 	if (dup2(px.fd_infile, STDIN_FILENO) < 0)
 		ft_error("dup ", &px);
+	px.nb = 2;
 	pipes(&px, av, env, ac);
-	if (px.flag == 1)
-		(unlink(px.itoaa), free(px.itoaa));
+	// if (px.flag == 1)
+	// 	(unlink(px.itoaa), free(px.itoaa));
 	while (j++ < px.nb - 2)
 		wait(NULL);
 	(close(px.p[0]), close(px.p[1]), exit(0));
