@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:45:27 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/26 20:55:12 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/01 02:27:58 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**env_path(char **env)
 	i = 0;
 	while (env[j])
 	{
-		if (ft_strcmp(env[j], "PATH=") == 0)
+		if (ft_strncmp(env[j], "PATH=", 5) == 0)
 			break ;
 		j++;
 	}

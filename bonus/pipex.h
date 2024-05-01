@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:13:57 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/26 20:55:28 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/01 02:36:14 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_vrs
 	int		p[2];
 	int		fd_infile;
 	int		fd_outfile;
-	int		here_doc_fd;
 	int		pid;
 	int		nb;
 	int		flag;
@@ -48,7 +47,7 @@ char	is_quote(char *s);
 char	**ft_split(char *s, char c);
 char	*ft_strjoin(char *s, char *buffer);
 char	*ft_strdup(char *s);
-int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	putstr_fd(char *s, int fd);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);

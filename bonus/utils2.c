@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:46:48 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/26 18:11:46 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/01 02:26:12 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,17 @@ void	putstr_fd(char *s, int fd)
 		write (fd, s++, 1);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+
 {
 	size_t	i;
 
-	if (!s1 || !s2)
-		return (1);
 	i = 0;
-	while (s1[i] == s2[i] && s2[i])
+	while (s1[i] == s2[i] && i < n && s1[i] && s2[i])
 		i++;
-	if (s1[i] == s2[i])
+	if (i == n)
 		return (0);
-	return (1);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 char	*ft_strjoin(char *s, char *buffer)
