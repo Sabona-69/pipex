@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:13:57 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/26 15:32:35 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:52:35 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_vrs
 size_t	ft_strlen(char *s);
 size_t	ft_strlen2d(char **s);
 char	*trim_end(char *s);
-char	is_quote(char *s);
+void	close_all(t_vrs *px);
 char	**ft_split(char *s, char c);
 char	*ft_strjoin(char *s, char *buffer);
 char	*ft_strdup(char *s);
@@ -43,6 +43,6 @@ char	*ft_substr(char *s, unsigned int start, size_t len);
 
 //errors
 void	free2d(char **s, int i);
-void	ft_error(char *s, t_vrs *pipex);
+void	ft_error(char *s, t_vrs *px);
 
 #endif

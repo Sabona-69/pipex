@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:45:27 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/19 23:23:57 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:36:42 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	free2d(char **s, int i)
 	free(s);
 }
 
-void	ft_error(char *s, t_vrs *pipex)
+void	ft_error(char *s, t_vrs *px)
 {
-	close(pipex->p[0]);
-	close(pipex->p[1]);
-	close(pipex->fd_infile);
-	close(pipex->fd_outfile);
+	close(px->p[0]);
+	close(px->p[1]);
+	close(px->fd_infile);
+	close(px->fd_outfile);
 	perror(s);
 	exit(1);
 }

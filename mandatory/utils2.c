@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:46:48 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/26 15:32:35 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:52:22 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,10 @@ char	*trim_end(char *s)
 	return (new);
 }
 
-char	is_quote(char *s)
+void	close_all(t_vrs *px)
 {
-	while (*s)
-	{
-		if (*s == '"' || *s == '\'')
-			return (*s);
-		s++;
-	}
-	return (' ');
+	close(px->fd_infile);
+	close(px->fd_outfile);
+	close(px->p[0]);
+	close(px->p[1]);
 }

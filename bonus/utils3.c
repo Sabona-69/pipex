@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:45:27 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 05:11:06 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:26:35 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,18 @@ char	**env_path(char **env)
 	j = 0;
 	while (new[j])
 	{
-		new[j] = ft_strjoin(new[j], "/");
+		new[j] = ft_strjoin(new[j], "/", 0);
 		j++;
 	}
 	return (new);
 }
 
+void	wait_cmds(t_vrs *px, int j)
+{
+	if (px->flag == 1)
+		(unlink(px->itoa), free(px->itoa));
+	while (j++ < px->nb - 2)
+		wait(NULL);
+	(close(px->fd_outfile), close(px->fd_infile));
+	(close(px->p[0]), close(px->p[1]), exit(0));
+}

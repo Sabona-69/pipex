@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/26 15:32:35 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 23:02:08 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,15 @@ char	*get_path(char **command, char **env, t_vrs *pipex)
 	return (path);
 }
 
-void	child_1(t_vrs *pipex, char **av, char **env)
+void	child_1(t_vrs *pipex, char *av, char **env)
 {
 	char	**command;
 	char	*path;
 
-	close(pipex->fd_outfile);
-	close(pipex->p[0]);
 	if (dup2(pipex->fd_infile, 0) < 0 || dup2(pipex->p[1], 1) < 0)
 		ft_error("dup2 ", pipex);
-	path = trim_end(av[2]);
-	(close(pipex->p[1]), close(pipex->fd_infile));
-	command = ft_split(path, is_quote(av[2]));
+	close_all(pipex);
+	command = ft_split(av, ' ');
 	path = get_path(command, env, pipex);
 	if (execve(path, command, env) < 0)
 	{
@@ -89,18 +86,15 @@ void	child_1(t_vrs *pipex, char **av, char **env)
 	}
 }
 
-void	child_2(t_vrs *pipex, char **av, char **env)
+void	child_2(t_vrs *pipex, char *av, char **env)
 {
 	char	**command;
 	char	*path;
 
-	path = trim_end(av[3]);
-	close(pipex->fd_infile);
-	close(pipex->p[1]);
 	if (dup2(pipex->p[0], 0) < 0 || dup2(pipex->fd_outfile, 1) < 0)
-		(free(path), ft_error("dup2 ", pipex));
-	(close(pipex->p[0]), close(pipex->fd_outfile));
-	command = ft_split (path, is_quote(av[3]));
+		ft_error("dup2 ", pipex);
+	close_all(pipex);
+	command = ft_split (av, ' ');
 	path = get_path(command, env, pipex);
 	if (execve(path, command, env) < 0)
 	{
@@ -125,14 +119,14 @@ int	main(int ac, char **av, char **env)
 	if (pipex.pid1 < 0)
 		ft_error("Fork ", &pipex);
 	if (pipex.pid1 == 0)
-		child_1(&pipex, av, env);
+		child_1(&pipex, av[2], env);
 	else
 	{
 		pipex.pid2 = fork();
 		if (pipex.pid2 < 0)
 			ft_error("Fork ", &pipex);
 		if (pipex.pid2 == 0)
-			child_2(&pipex, av, env);
+			child_2(&pipex, av[ac - 2], env);
 	}
-	(close(pipex.p[0]), close(pipex.p[1]), wait(NULL), wait(NULL), exit(0));
+	(close_all(&pipex), wait(NULL), wait(NULL), exit(0));
 }

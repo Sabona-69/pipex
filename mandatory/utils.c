@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:44:18 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/03/23 05:57:12 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:50:47 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,20 @@ char	**ft_split(char *s, char c)
 	return (new);
 }
 
-char	*ft_strdup(char *s)
+char	*ft_strdup(char	*s)
 {
-	char	*new;
+	char	*s1;
+	int		i;
 
-	new = malloc(ft_strlen(s) + 1);
-	while (*s)
-		*(new++) = *(s++);
-	*new = '\0';
-	return (new);
+	i = 0;
+	s1 = malloc (ft_strlen(s) + 1);
+	if (!s1)
+		return (NULL);
+	while (s[i])
+	{
+		s1[i] = s[i];
+		i++;
+	}
+	s1[i] = '\0';
+	return (s1);
 }

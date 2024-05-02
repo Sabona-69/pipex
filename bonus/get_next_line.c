@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 13:58:58 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 04:53:19 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:14:32 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_reader(char *s, int fd)
 		if (rd == -1)
 			return ((free (s), free (buffer), buffer = NULL, s = NULL));
 		buffer[rd] = '\0';
-		s = ft_strjoin(s, buffer);
+		s = ft_strjoin(s, buffer, 1);
 	}
 	free (buffer);
 	return (s);

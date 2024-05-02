@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:46:48 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 05:38:15 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:16:07 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-char	*ft_strjoin(char *s, char *buffer)
+char	*ft_strjoin(char *s, char *buffer, int flag)
 {
 	char	*string;
 	int		i;
@@ -56,16 +56,28 @@ char	*ft_strjoin(char *s, char *buffer)
 	while (buffer[j])
 		string[i++] = buffer[j++];
 	string[i] = '\0';
+	if (flag == 1)
+		free(s);
 	return (string);
 }
 
-char	is_quote(char *s)
+void	random_string(t_vrs *px)
 {
-	while (*s)
+	char	*new;
+	int		nbr;
+	int		i;
+
+	i = 1;
+	nbr = (int)&new;
+	(1) && (nbr < 0) && (nbr *= -1);
+	new = (char *)malloc(9);
+	while (i < 9)
 	{
-		if (*s == '"' || *s == '\'')
-			return (*s);
-		s++;
+		new[i++] = (nbr % 10) + 48;
+		nbr /= 10;
 	}
-	return (' ');
+	(1) && (new[0] = '.', new[8] = '\0');
+	printf("{%s}\n", new);
+	px->itoa = ft_strjoin("/tmp/", new, 0);
+	free(new);
 }

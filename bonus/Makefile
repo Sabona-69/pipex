@@ -6,7 +6,7 @@
 #    By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/29 05:16:48 by hel-omra          #+#    #+#              #
-#    Updated: 2024/05/02 01:23:48 by hel-omra         ###   ########.fr        #
+#    Updated: 2024/05/02 23:04:31 by hel-omra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,15 @@ CC			= cc
 
 RM			= rm -rf
 
-FLAGS		= -g -fsanitize=address#-Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror#
 
 SRC			= pipex.c utils.c utils2.c utils3.c get_next_line.c
 
 OBJ			= $(SRC:.c=.o)
 
-all			: $(NAME) clean
+all			: $(NAME)
 
-%.o			: %.c
+%.o			: %.c pipex.h
 				$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME)		: $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 05:37:48 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:54:25 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_path(char **command, char **env, t_vrs *px)
 	{
 		while (paths[j])
 		{
-			path = ft_strjoin(paths[j], command[0]);
+			path = ft_strjoin(paths[j], command[0], 0);
 			if (access(path, F_OK | X_OK) == 0)
 				break ;
 			j++;
@@ -48,8 +48,9 @@ void	create_child(char *av, char **env, t_vrs *px)
 
 	if (dup2(px->p[1], STDOUT_FILENO) < 0)
 		ft_error("dup2 ", px);
-	(close(px->p[1]), close(px->fd_infile), (close(px->p[0])));
-	command = ft_split(av, is_quote(av));
+	(close(px->p[1]), (close(px->p[0])));
+	(close(px->fd_infile), close(px->fd_outfile));
+	command = ft_split(av, ' ');
 	path = get_path(command, env, px);
 	if (execve(path, command, env) < 0)
 	{
@@ -82,7 +83,7 @@ void	pipes(t_vrs *px, char **av, char **env, int ac)
 		{
 			if (dup2(px->p[0], 0) < 0)
 				ft_error("dup ", px);
-			(1) && (close (px->p[0]), close (px->p[1]), px->nb++);
+			(1) && (close(px->p[0]), close(px->p[1]), px->nb++);
 		}
 	}
 }
@@ -91,17 +92,12 @@ void	here_doc(t_vrs *px, char *s)
 {
 	char		*line;
 
-	(1) && (px->flag = 1, px->pid = 1);
-	px->nb = (int)&px->itoa;
-	(1) && (px->nb < 0) && (px->nb *= -1);
-	px->itoa = (char *)malloc(7);
-	while (px->pid < 7)
-		(1) && (px->itoa[px->pid++] = (px->nb % 10) + 48, px->nb /= 10);
-	(1) && (px->itoa[0] = '.', px->itoa[6] = '\0');
-	(1) && (px->itoa = ft_strjoin("/tmp/", px->itoa), s = ft_strjoin(s, "\n"));
+	px->flag = 1;
+	random_string(px);
+	s = ft_strjoin(s, "\n", 0);
 	px->fd_infile = open(px->itoa, O_CREAT | O_APPEND | O_RDWR, 0777);
 	if (px->fd_infile < 0)
-		(free(s), ft_error("fd ", px));
+		(free(s), free(px->itoa), ft_error("fd ", px));
 	while (1)
 	{
 		(putstr_fd(">> ", STDOUT_FILENO), line = get_next_line(0));
@@ -114,7 +110,6 @@ void	here_doc(t_vrs *px, char *s)
 		}
 		(putstr_fd(line, px->fd_infile), free(line));
 	}
-	close(px->fd_infile);
 	px->fd_infile = open(px->itoa, O_CREAT | O_RDWR, 0644);
 }
 
@@ -144,9 +139,5 @@ int	main(int ac, char **av, char **env)
 	if (dup2(px.fd_infile, 0) < 0)
 		ft_error("dup ", &px);
 	pipes(&px, av, env, ac);
-	if (px.flag == 1)
-		(unlink(px.itoa), free(px.itoa));
-	while (j++ < px.nb - 2)
-		wait(NULL);
-	(close(px.p[0]), close(px.p[1]), exit(0));
+	wait_cmds(&px, j);
 }
