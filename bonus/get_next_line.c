@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 18:10:31 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/04/26 16:17:33 by hel-omra         ###   ########.fr       */
+/*   Created: 2023/12/12 13:58:58 by hel-omra          #+#    #+#             */
+/*   Updated: 2024/05/02 04:53:19 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*get_next_line(int fd)
 
 	output = NULL;
 	if (fd < 0 || BUFFER_SIZE < 1 || BUFFER_SIZE > INT_MAX
-		|| read(fd, NULL, 0) < 0)
+		|| read(fd, NULL, 0) < 0 || fd > OPEN_MAX)
 		return (free(s), s = NULL);
 	s = ft_reader(s, fd);
 	if (!s)

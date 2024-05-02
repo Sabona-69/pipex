@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:13:57 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/01 02:36:14 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 05:11:06 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 typedef struct s_vrs
 {
 	char	**path;
-	char	*itoaa;
+	char	*itoa;
 	int		p[2];
 	int		fd_infile;
 	int		fd_outfile;
@@ -45,7 +45,7 @@ size_t	ft_strlen2d(char **s);
 char	*trim_end(char *s);
 char	is_quote(char *s);
 char	**ft_split(char *s, char c);
-char	*ft_strjoin(char *s, char *buffer);
+char	*ft_strjoin(char *s, char *buffe);
 char	*ft_strdup(char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	putstr_fd(char *s, int fd);

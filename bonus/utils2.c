@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:46:48 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/01 02:26:12 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 05:38:15 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,6 @@ char	*ft_strjoin(char *s, char *buffer)
 		string[i++] = buffer[j++];
 	string[i] = '\0';
 	return (string);
-}
-
-char	*trim_end(char *s)
-{
-	char	*new;
-	int		i;
-
-	i = ft_strlen(s) - 1;
-	if (s[i] != ' ')
-		return (s);
-	while (s[i] == ' ')
-		i--;
-	new = ft_substr(s, 0, i + 1);
-	return (new);
 }
 
 char	is_quote(char *s)

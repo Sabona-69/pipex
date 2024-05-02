@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:45:27 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/01 02:27:58 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/02 05:11:06 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free2d(char **s, int i)
 void	ft_error(char *s, t_vrs *px)
 {
 	if (px->flag == 1)
-		free(px->itoaa);
+		free(px->itoa);
 	close(px->p[0]);
 	close(px->p[1]);
 	close(px->fd_infile);
