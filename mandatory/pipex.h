@@ -6,18 +6,14 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:13:57 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 22:52:35 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:46:56 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <fcntl.h>
+# include <libc.h>
 
 typedef struct s_vrs
 {
@@ -32,7 +28,6 @@ typedef struct s_vrs
 //utils
 size_t	ft_strlen(char *s);
 size_t	ft_strlen2d(char **s);
-char	*trim_end(char *s);
 void	close_all(t_vrs *px);
 char	**ft_split(char *s, char c);
 char	*ft_strjoin(char *s, char *buffer);
