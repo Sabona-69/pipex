@@ -6,7 +6,7 @@
 #    By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/29 05:16:48 by hel-omra          #+#    #+#              #
-#    Updated: 2024/05/02 23:04:31 by hel-omra         ###   ########.fr        #
+#    Updated: 2024/05/03 14:50:56 by hel-omra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC			= pipex.c utils.c utils2.c utils3.c get_next_line.c
 
 OBJ			= $(SRC:.c=.o)
 
-all			: $(NAME)
+all			: $(NAME) clean
 
 %.o			: %.c pipex.h
 				$(CC) $(FLAGS) -c $< -o $@

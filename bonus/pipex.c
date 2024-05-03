@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 22:54:25 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:01:47 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	here_doc(t_vrs *px, char *s)
 		}
 		(putstr_fd(line, px->fd_infile), free(line));
 	}
+	close(px->fd_infile);
 	px->fd_infile = open(px->itoa, O_CREAT | O_RDWR, 0644);
 }
 

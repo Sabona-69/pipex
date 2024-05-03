@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:46:48 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 22:16:07 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:40:33 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	random_string(t_vrs *px)
 		nbr /= 10;
 	}
 	(1) && (new[0] = '.', new[8] = '\0');
-	printf("{%s}\n", new);
 	px->itoa = ft_strjoin("/tmp/", new, 0);
 	free(new);
 }

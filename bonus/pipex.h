@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:13:57 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 22:14:21 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:46:46 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,7 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <fcntl.h>
-# include <limits.h>
+# include <libc.h>
 
 typedef struct s_vrs
 {
@@ -42,8 +37,6 @@ void	ft_error(char *s, t_vrs *pipex);
 // utils
 size_t	ft_strlen(char *s);
 size_t	ft_strlen2d(char **s);
-char	*trim_end(char *s);
-char	is_quote(char *s);
 char	**ft_split(char *s, char c);
 char	*ft_strjoin(char *s, char *buffer, int flag);
 char	*ft_strdup(char *s);
