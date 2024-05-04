@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   utils2_b.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:46:48 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/03 14:40:33 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:58:57 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex_b.h"
 
 void	putstr_fd(char *s, int fd)
 {
@@ -63,14 +63,13 @@ char	*ft_strjoin(char *s, char *buffer, int flag)
 
 void	random_string(t_vrs *px)
 {
-	char	*new;
+	char	new[9];
 	int		nbr;
 	int		i;
 
 	i = 1;
 	nbr = (int)&new;
 	(1) && (nbr < 0) && (nbr *= -1);
-	new = (char *)malloc(9);
 	while (i < 9)
 	{
 		new[i++] = (nbr % 10) + 48;
@@ -78,5 +77,4 @@ void	random_string(t_vrs *px)
 	}
 	(1) && (new[0] = '.', new[8] = '\0');
 	px->itoa = ft_strjoin("/tmp/", new, 0);
-	free(new);
 }

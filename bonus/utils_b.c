@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_b.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:44:18 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 04:52:16 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:49:35 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex_b.h"
 
 size_t	ft_strlen(char *s)
 {
@@ -85,7 +85,7 @@ char	**ft_split(char *s, char c)
 			i++;
 		new[k] = ft_substr(s, j, i - j);
 		if (!new[k])
-			free2d(new, k);
+			return (free2d(new, k), NULL);
 		k++;
 	}
 	new[k] = NULL;

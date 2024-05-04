@@ -6,11 +6,11 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 23:02:08 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:49:47 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 char	**env_path(char **env)
 {
@@ -78,6 +78,8 @@ void	child_1(t_vrs *pipex, char *av, char **env)
 		ft_error("dup2 ", pipex);
 	close_all(pipex);
 	command = ft_split(av, ' ');
+	if (!command)
+		ft_error("malloc ", pipex);
 	path = get_path(command, env, pipex);
 	if (execve(path, command, env) < 0)
 	{
@@ -95,6 +97,8 @@ void	child_2(t_vrs *pipex, char *av, char **env)
 		ft_error("dup2 ", pipex);
 	close_all(pipex);
 	command = ft_split (av, ' ');
+	if (!command)
+		ft_error("malloc ", pipex);
 	path = get_path(command, env, pipex);
 	if (execve(path, command, env) < 0)
 	{

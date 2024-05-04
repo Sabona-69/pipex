@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_b.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/03 15:01:47 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:49:35 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex_b.h"
 
 char	*get_path(char **command, char **env, t_vrs *px)
 {
@@ -51,6 +51,8 @@ void	create_child(char *av, char **env, t_vrs *px)
 	(close(px->p[1]), (close(px->p[0])));
 	(close(px->fd_infile), close(px->fd_outfile));
 	command = ft_split(av, ' ');
+	if (!command)
+		ft_error("malloc ", px);
 	path = get_path(command, env, px);
 	if (execve(path, command, env) < 0)
 	{

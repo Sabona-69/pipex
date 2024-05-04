@@ -6,11 +6,11 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 13:58:58 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/02 22:14:32 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:49:35 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex_b.h"
 
 int	check_nl(char *s)
 {
