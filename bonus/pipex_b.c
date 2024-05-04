@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/04 18:31:27 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:51:36 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	pipes(t_vrs *px, char **av, char **env, int ac)
 	while (px->nb < ac - 1)
 	{
 		if (pipe(px->p) < 0)
-			ft_error("pipex : pipe\n", px);
+			ft_error("pipex : pipe failed\n", px);
 		px->pid = fork();
 		if (px->pid < 0)
-			ft_error("pipex : fork\n", px);
+			ft_error("pipex : fork failed\n", px);
 		if (px->pid == 0 && px->nb != ac - 2)
 			create_child(av[px->nb], env, px);
 		else if (px->pid == 0 && px->nb == ac - 2)
@@ -84,7 +84,7 @@ void	pipes(t_vrs *px, char **av, char **env, int ac)
 		else
 		{
 			if (dup2(px->p[0], 0) < 0)
-				ft_error("pipex : dup2\n", px);
+				ft_error("pipex : dup2 failed\n", px);
 			(1) && (close(px->p[0]), close(px->p[1]), px->nb++);
 		}
 	}
@@ -99,7 +99,7 @@ void	here_doc(t_vrs *px, char *s)
 	s = ft_strjoin(s, "\n", 0);
 	px->fd_infile = open(px->itoa, O_CREAT | O_APPEND | O_RDWR, 0777);
 	if (px->fd_infile < 0)
-		(free(s), free(px->itoa), ft_error("pipex : fd\n", px));
+		(free(s), free(px->itoa), ft_error("pipex : fd failed\n", px));
 	while (1)
 	{
 		(putstr_fd(">> ", STDOUT_FILENO), line = get_next_line(0));
@@ -138,9 +138,9 @@ int	main(int ac, char **av, char **env)
 		px.fd_outfile = open(av[ac - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	}
 	if (px.fd_infile < 0 || px.fd_outfile < 0)
-		ft_error("pipex : file\n", &px);
+		ft_error("pipex : file failed\n", &px);
 	if (dup2(px.fd_infile, 0) < 0)
-		ft_error("pipex : dup2\n", &px);
+		ft_error("pipex : dup2 failed\n", &px);
 	pipes(&px, av, env, ac);
 	wait_cmds(&px, j);
 }
