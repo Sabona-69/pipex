@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/03 16:49:47 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:34:42 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*get_path(char **command, char **env, t_vrs *pipex)
 			if (!paths[j] && access(path, F_OK | X_OK) < 0)
 			{
 				free2d(paths, ft_strlen2d(paths));
-				ft_error("path ", pipex);
+				ft_error("pipex : command not found\n", pipex);
 			}
 		}
 	}
@@ -75,16 +75,16 @@ void	child_1(t_vrs *pipex, char *av, char **env)
 	char	*path;
 
 	if (dup2(pipex->fd_infile, 0) < 0 || dup2(pipex->p[1], 1) < 0)
-		ft_error("dup2 ", pipex);
+		ft_error("pipex : dup2\n", pipex);
 	close_all(pipex);
 	command = ft_split(av, ' ');
 	if (!command)
-		ft_error("malloc ", pipex);
+		ft_error("pipex : malloc\n", pipex);
 	path = get_path(command, env, pipex);
 	if (execve(path, command, env) < 0)
 	{
 		free2d(command, ft_strlen2d (command));
-		ft_error("execve ", pipex);
+		ft_error("pipex : execve\n", pipex);
 	}
 }
 
@@ -94,16 +94,16 @@ void	child_2(t_vrs *pipex, char *av, char **env)
 	char	*path;
 
 	if (dup2(pipex->p[0], 0) < 0 || dup2(pipex->fd_outfile, 1) < 0)
-		ft_error("dup2 ", pipex);
+		ft_error("pipex : dup2\n", pipex);
 	close_all(pipex);
 	command = ft_split (av, ' ');
 	if (!command)
-		ft_error("malloc ", pipex);
+		ft_error("pipex : malloc\n", pipex);
 	path = get_path(command, env, pipex);
 	if (execve(path, command, env) < 0)
 	{
 		free2d (command, ft_strlen2d (command));
-		ft_error("execve ", pipex);
+		ft_error("pipex : execve\n", pipex);
 	}
 }
 
@@ -116,19 +116,19 @@ int	main(int ac, char **av, char **env)
 	pipex.fd_infile = open(av[1], O_RDONLY);
 	pipex.fd_outfile = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	if (pipex.fd_infile < 0 || pipex.fd_outfile < 0)
-		ft_error("File ", &pipex);
+		ft_error("pipex : File\n", &pipex);
 	if (pipe(pipex.p) < 0)
-		ft_error("Pipe ", &pipex);
+		ft_error("pipex : Pipe\n", &pipex);
 	pipex.pid1 = fork();
 	if (pipex.pid1 < 0)
-		ft_error("Fork ", &pipex);
+		ft_error("pipex : Fork\n", &pipex);
 	if (pipex.pid1 == 0)
 		child_1(&pipex, av[2], env);
 	else
 	{
 		pipex.pid2 = fork();
 		if (pipex.pid2 < 0)
-			ft_error("Fork ", &pipex);
+			ft_error("pipex : Fork\n", &pipex);
 		if (pipex.pid2 == 0)
 			child_2(&pipex, av[ac - 2], env);
 	}

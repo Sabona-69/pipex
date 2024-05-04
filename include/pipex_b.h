@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_b.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:13:57 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/03 14:46:46 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:37:36 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_B_H
+# define PIPEX_B_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif

@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:45:27 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/03 16:49:47 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:36:38 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	ft_error(char *s, t_vrs *px)
 	close(px->p[1]);
 	close(px->fd_infile);
 	close(px->fd_outfile);
-	perror(s);
+	putstr_fd(s, 2);
 	exit(1);
 }

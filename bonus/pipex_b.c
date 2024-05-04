@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/03 16:49:35 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:31:27 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_path(char **command, char **env, t_vrs *px)
 			if (!paths[j] && access(path, F_OK | X_OK) < 0)
 			{
 				free2d(paths, ft_strlen2d(paths));
-				ft_error("path ", px);
+				ft_error("pipex : command not found\n", px);
 			}
 		}
 	}
@@ -47,17 +47,17 @@ void	create_child(char *av, char **env, t_vrs *px)
 	char	*path;
 
 	if (dup2(px->p[1], STDOUT_FILENO) < 0)
-		ft_error("dup2 ", px);
+		ft_error("pipex : dup2 failed\n", px);
 	(close(px->p[1]), (close(px->p[0])));
 	(close(px->fd_infile), close(px->fd_outfile));
 	command = ft_split(av, ' ');
 	if (!command)
-		ft_error("malloc ", px);
+		ft_error("pipex : malloc failed\n", px);
 	path = get_path(command, env, px);
 	if (execve(path, command, env) < 0)
 	{
 		free2d(command, ft_strlen2d (command));
-		ft_error("execve ", px);
+		ft_error("pipex : execve failed\n", px);
 	}
 }
 
@@ -70,10 +70,10 @@ void	pipes(t_vrs *px, char **av, char **env, int ac)
 	while (px->nb < ac - 1)
 	{
 		if (pipe(px->p) < 0)
-			ft_error("pipe ", px);
+			ft_error("pipex : pipe\n", px);
 		px->pid = fork();
 		if (px->pid < 0)
-			ft_error("fork ", px);
+			ft_error("pipex : fork\n", px);
 		if (px->pid == 0 && px->nb != ac - 2)
 			create_child(av[px->nb], env, px);
 		else if (px->pid == 0 && px->nb == ac - 2)
@@ -84,7 +84,7 @@ void	pipes(t_vrs *px, char **av, char **env, int ac)
 		else
 		{
 			if (dup2(px->p[0], 0) < 0)
-				ft_error("dup ", px);
+				ft_error("pipex : dup2\n", px);
 			(1) && (close(px->p[0]), close(px->p[1]), px->nb++);
 		}
 	}
@@ -99,7 +99,7 @@ void	here_doc(t_vrs *px, char *s)
 	s = ft_strjoin(s, "\n", 0);
 	px->fd_infile = open(px->itoa, O_CREAT | O_APPEND | O_RDWR, 0777);
 	if (px->fd_infile < 0)
-		(free(s), free(px->itoa), ft_error("fd ", px));
+		(free(s), free(px->itoa), ft_error("pipex : fd\n", px));
 	while (1)
 	{
 		(putstr_fd(">> ", STDOUT_FILENO), line = get_next_line(0));
@@ -138,9 +138,9 @@ int	main(int ac, char **av, char **env)
 		px.fd_outfile = open(av[ac - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	}
 	if (px.fd_infile < 0 || px.fd_outfile < 0)
-		ft_error("file ", &px);
+		ft_error("pipex : file\n", &px);
 	if (dup2(px.fd_infile, 0) < 0)
-		ft_error("dup ", &px);
+		ft_error("pipex : dup2\n", &px);
 	pipes(&px, av, env, ac);
 	wait_cmds(&px, j);
 }
