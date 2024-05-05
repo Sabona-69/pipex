@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:45:27 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/05 19:31:31 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 20:20:55 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,17 @@ char	**env_path(char **env, t_vrs *px)
 	{
 		if (ft_strncmp(env[j], "PATH=", 5) == 0)
 			break ;
-		j++;
-		if (env[j] == NULL)
-			(putstr_fd("pipex : command not found\n", 2), exit(1));
+		j++;		if (env[j] == NULL)
+			ft_error("pipex : command not found\n", px);
 	}
 	while (env[j][i] && env[j][i] != '/')
 		i++;
 	new = ft_split(&env[j][i], ':');
 	if (!new)
 		(putstr_fd("Invalid enviroments !\n", 2), exit(1));
-	j = 0;
-	while (new[j])
-	{
-		new[j] = ft_strjoin(new[j], "/", 0);
-		j++;
-	}
+	j = -1;
+	while (new[++j])
+		new[j] = ft_strjoin(new[j], "/", 1);
 	return (new);
 }
 
