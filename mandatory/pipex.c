@@ -6,38 +6,36 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/05 19:23:23 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:37:50 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-char	**env_path(char **env)
+char	**env_path(char **env, t_vrs *px)
 {
 	char	**new;
 	int		j;
 	int		i;
 
 	(1) && (i = 0, j = 0);
-	while (env[j])
+	// if (!env)
+	// 	ft_error("pipex : command not found\n", px);
+	while (env[j++])
 	{
 		if (ft_strncmp(env[j], "PATH=", 5) == 0)
 			break ;
-		j++;
 		if (env[j] == NULL)
-			(putstr_fd("pipex : command not found\n", 2), exit(1));
+			ft_error("pipex : command not found\n", px);
 	}
 	while (env[j][i] && env[j][i] != '/')
 		i++;
 	new = ft_split(&env[j][i], ':');
 	if (!new)
-		(putstr_fd("Invalid env !\n", 2), exit(1));
-	j = 0;
-	while (new[j])
-	{
+		(putstr_fd("Invalid enviroments !\n", 2), exit(1));
+	j = -1;
+	while (new[++j])
 		new[j] = ft_strjoin(new[j], "/");
-		j++;
-	}
 	return (new);
 }
 
@@ -47,7 +45,7 @@ char	*get_path(char **command, char **env, t_vrs *pipex)
 	char	*path;
 	int		j;
 
-	(1) && (j = 0, paths = env_path(env));
+	(1) && (j = 0, paths = env_path(env, pipex));
 	if (access(command[j], F_OK | X_OK) == 0)
 		path = ft_strdup(command[j]);
 	else

@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:13:57 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/04 18:37:36 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:31:41 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*get_next_line(int fd);
 void	random_string(t_vrs *px);
 
 // pipex
-char	**env_path(char **env);
+char	**env_path(char **env, t_vrs *px);
 void	wait_cmds(t_vrs *px, int j);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:45:27 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/04 18:16:31 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:31:31 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,26 @@ void	ft_error(char *s, t_vrs *px)
 	exit(1);
 }
 
-char	**env_path(char **env)
+char	**env_path(char **env, t_vrs *px)
 {
 	char	**new;
 	int		j;
 	int		i;
 
-	j = 0;
-	i = 0;
+	(1) && (i = 0, j = 0);
 	while (env[j])
 	{
 		if (ft_strncmp(env[j], "PATH=", 5) == 0)
 			break ;
 		j++;
+		if (env[j] == NULL)
+			(putstr_fd("pipex : command not found\n", 2), exit(1));
 	}
 	while (env[j][i] && env[j][i] != '/')
 		i++;
 	new = ft_split(&env[j][i], ':');
 	if (!new)
-		(putstr_fd("Invalid env !\n", 2), exit(1));
+		(putstr_fd("Invalid enviroments !\n", 2), exit(1));
 	j = 0;
 	while (new[j])
 	{
