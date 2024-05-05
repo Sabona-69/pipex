@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/05 20:31:36 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 21:41:23 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,8 @@ void	here_doc(t_vrs *px, char *s)
 	px->fd_infile = open(px->itoa, O_CREAT | O_RDWR, 0644);
 }
 
-void	f()
-{
-	system("leaks pipex_b");
-	printf("{%d}\n", getpid());
-	usleep(1000 * 1000 * 1000);
-}
-
 int	main(int ac, char **av, char **env)
 {
-	atexit(f);
 	t_vrs	px;
 	int		j;
 
