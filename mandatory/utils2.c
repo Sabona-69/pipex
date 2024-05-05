@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:46:48 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/05 19:20:14 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:23:21 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	putstr_fd(char *s, int fd)
 		write (fd, &s[i++], 1);
 }
 
-int	ft_strcmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 
 {
 	size_t	i;
