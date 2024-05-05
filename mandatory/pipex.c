@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/04 19:03:22 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:18:45 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ char	**env_path(char **env)
 	int		j;
 	int		i;
 
-	j = 0;
-	i = 0;
+	(1) && (i = 0, j = 0);
 	while (env[j])
 	{
 		if (ft_strcmp(env[j], "PATH=", 5) == 0)
 			break ;
 		j++;
+		if (env[j] == NULL)
+			(putstr_fd("pipex : command not found\n", 2), exit(1));
 	}
 	while (env[j][i] && env[j][i] != '/')
 		i++;
@@ -114,7 +115,7 @@ int	main(int ac, char **av, char **env)
 	if (ac != 5)
 		(putstr_fd("Please insert 5 arguments !\n", 2), exit (1));
 	pipex.fd_infile = open(av[1], O_RDONLY);
-	pipex.fd_outfile = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	pipex.fd_outfile = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (pipex.fd_infile < 0 || pipex.fd_outfile < 0)
 		ft_error("pipex : file failed\n", &pipex);
 	if (pipe(pipex.p) < 0)

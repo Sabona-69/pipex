@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/04 18:51:36 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:09:24 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	create_child(char *av, char **env, t_vrs *px)
 	if (execve(path, command, env) < 0)
 	{
 		free2d(command, ft_strlen2d (command));
-		ft_error("pipex : execve failed\n", px);
+		ft_error("pipex : commamd not found\n", px);
 	}
 }
 
@@ -97,7 +97,7 @@ void	here_doc(t_vrs *px, char *s)
 	px->flag = 1;
 	random_string(px);
 	s = ft_strjoin(s, "\n", 0);
-	px->fd_infile = open(px->itoa, O_CREAT | O_APPEND | O_RDWR, 0777);
+	px->fd_infile = open(px->itoa, O_CREAT | O_TRUNC | O_RDWR, 0777);
 	if (px->fd_infile < 0)
 		(free(s), free(px->itoa), ft_error("pipex : fd failed\n", px));
 	while (1)
