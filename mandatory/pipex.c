@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/05 20:31:00 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 23:01:43 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ char	*get_path(char **command, char **env, t_vrs *pipex)
 	int		j;
 
 	(1) && (j = 0, paths = env_path(env, pipex));
-	if (access(command[j], F_OK | X_OK) == 0)
-		path = ft_strdup(command[j]);
+	if (access(command[0], F_OK | X_OK) == 0)
+		path = ft_strdup(command[0]);
 	else
 	{
 		while (paths[j])
@@ -82,7 +82,7 @@ void	child_1(t_vrs *pipex, char *av, char **env)
 	if (execve(path, command, env) < 0)
 	{
 		free2d(command, ft_strlen2d (command));
-		ft_error("pipex : execve failed\n", pipex);
+		ft_error("pipex : command not found\n", pipex);
 	}
 }
 
@@ -94,14 +94,14 @@ void	child_2(t_vrs *pipex, char *av, char **env)
 	if (dup2(pipex->p[0], 0) < 0 || dup2(pipex->fd_outfile, 1) < 0)
 		ft_error("pipex : dup2 failed\n", pipex);
 	close_all(pipex);
-	command = ft_split (av, ' ');
+	command = ft_split(av, ' ');
 	if (!command)
 		ft_error("pipex : malloc failed\n", pipex);
 	path = get_path(command, env, pipex);
 	if (execve(path, command, env) < 0)
 	{
 		free2d (command, ft_strlen2d (command));
-		ft_error("pipex : execve failed\n", pipex);
+		ft_error("pipex : command not found\n", pipex);
 	}
 }
 

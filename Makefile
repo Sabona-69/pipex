@@ -6,7 +6,7 @@
 #    By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/29 05:16:48 by hel-omra          #+#    #+#              #
-#    Updated: 2024/05/05 21:40:43 by hel-omra         ###   ########.fr        #
+#    Updated: 2024/05/05 21:45:22 by hel-omra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC			= cc
 
 RM			= rm -rf
 
-FLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS		= -Wall -Wextra -Werror
 
 SRC			= mandatory/pipex.c mandatory/utils.c mandatory/utils2.c mandatory/utils3.c
 

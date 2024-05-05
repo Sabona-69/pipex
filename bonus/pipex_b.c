@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:16:40 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/05 21:41:23 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 23:00:32 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ char	*get_path(char **command, char **env, t_vrs *px)
 	int		j;
 
 	(1) && (j = 0, paths = env_path(env, px));
-	if (access(command[j], F_OK | X_OK) == 0)
-		path = ft_strdup(command[j]);
+	if (access(command[0], F_OK | X_OK) == 0)
+		path = ft_strdup(command[0]);
 	else
 	{
 		while (paths[j])

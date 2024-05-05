@@ -6,7 +6,7 @@
 /*   By: hel-omra <hel-omra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 05:45:27 by hel-omra          #+#    #+#             */
-/*   Updated: 2024/05/05 21:18:49 by hel-omra         ###   ########.fr       */
+/*   Updated: 2024/05/05 22:59:30 by hel-omra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	**env_path(char **env, t_vrs *px)
 	{
 		if (ft_strncmp(env[j], "PATH=", 5) == 0)
 			break ;
-		j++;		if (env[j] == NULL)
+		j++;
+		if (env[j] == NULL)
 			ft_error("pipex : command not found\n", px);
 	}
 	while (env[j][i] && env[j][i] != '/')
@@ -73,7 +74,7 @@ void	wait_cmds(t_vrs *px, int j)
 	if (px->flag == 1)
 		(unlink(px->itoa), free(px->itoa));
 	(close(px->fd_outfile), close(px->fd_infile));
-	(close(px->p[0]), close(px->p[1])); 
+	(close(px->p[0]), close(px->p[1]));
 	while (j++ < px->nb - 2)
 		wait(NULL);
 	exit(0);
